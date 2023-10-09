@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>태양계 애니메이션</title>
+    <title>애니메이션</title>
 
     <style>
     body {
@@ -150,8 +150,6 @@
     box-shadow: 0 0 20px rgba(255, 212, 169, 0.813);
     overflow: hidden; /* 자식 요소가 부모 요소를 벗어나지 않도록 overflow 속성 추가 */
 }
-
-/* 갈색 무늬 그라데이션을 갖는 자식 요소 추가 */
 .planet-Jupiter::before {
     content: "";
     width: 100%;
@@ -190,34 +188,32 @@
     left: calc(50% - 10px);
 }
 
-/* 고리의 외곽 */
+/* 고리 */
 .planet-Saturn::before {
     content: "";
-    width: 120px; /* 고리의 너비 조절 */
-    height: 4px; /* 고리의 두께 조절 */
-    background-color: rgba(255, 255, 255, 0.265); /* 투명한 흰색 고리의 색상 및 투명도 조절 */
+    width: 120px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.265); 
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(255, 224, 193, 0.813);
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg); /* 고리의 회전 및 기울임 조절 */
-    z-index: -1; /* 토성의 뒤로 가려지도록 설정 */
+    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg); 
+    z-index: -1; 
 }
-
-/* 고리의 내부 */
 .planet-Saturn::after {
     content: "";
-    width: 120px; /* 고리의 내부 너비 조절 */
-    height: 4px; /* 고리의 내부 두께 조절 */
-    background-color: rgba(255, 255, 255, 0.404); /* 흰색 고리의 색상 및 투명도 조절 */
+    width: 120px;
+    height: 4px; 
+    background-color: rgba(255, 255, 255, 0.404);
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(255, 224, 193, 0.813);
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg); /* 고리의 회전 및 기울임 조절 */
-    z-index: 1; /* 토성 위에 표시되도록 설정 */
+    transform: translate(-50%, -50%) rotate(15deg) skewX(-15deg);
+    z-index: 1;
 }
 
 
@@ -344,7 +340,7 @@
         white-space: nowrap;
     }
     
-    /* 스피드 조절 */
+    /* 스피드 조절-> 궤도 굵기 조절로 변경함 */
     .speed-control {
         position: absolute;
         top: 473px;
@@ -385,7 +381,7 @@
     cursor: pointer;
     }
 
-    /* 밝기 표시 스타일 */
+    /* 밝기 조절 */
     .brightness-indicator {
         width: 15px;
         height: 15px;
@@ -520,7 +516,7 @@ const orbits = document.querySelectorAll('.orbit_1, .orbit_2, .orbit_3, .orbit_4
 let isDragging = false;
 let initialX = 0;
 let handleLeft = 0;
-const maxOrbitThickness = 2; // 최대 궤도 굵기 (2px)
+const maxOrbitThickness = 2;
 
 handle.addEventListener('mousedown', (e) => {
     isDragging = true;
@@ -543,12 +539,12 @@ document.addEventListener('mousemove', (e) => {
 
     handle.style.left = newLeft - sliderLeft + 'px';
 
-    const maxThickness = maxOrbitThickness; // 최대 굵기
+    const maxThickness = maxOrbitThickness;
 
-    const thicknessRange = maxThickness; // 굵기 범위
+    const thicknessRange = maxThickness;
     const thicknessFactor = (newLeft - sliderLeft) / maxHandleX * thicknessRange;
 
-    // 각 궤도의 굵기를 업데이트
+    
     orbits.forEach((orbit, index) => {
         const thickness = thicknessFactor;
         orbit.style.borderWidth = `${thickness}px`;
@@ -598,12 +594,12 @@ handle.addEventListener('dragstart', (e) => {
 
             brightnessIndicator.style.left = newBrightnessLeft - brightnessControlLeft + 'px';
 
-            // 밝기 값을 계산 (0에서 100 사이의 값으로 매핑)
+           
             const brightnessRange = maxBrightnessIndicatorX / 2;
             const brightnessChange = (newBrightnessLeft - brightnessControlLeft - brightnessRange) / brightnessRange;
             currentBrightness = 50 + Math.round(brightnessChange * 50);
 
-            // 행성들의 밝기(box-shadow)를 업데이트
+        
             planets.forEach((planet) => {
                 planet.style.boxShadow = `0 0 ${currentBrightness}px rgba(255, 236, 173, 1)`;
             });
